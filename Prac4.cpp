@@ -50,24 +50,12 @@
 // Includes needed for the program
 #include "Prac4.h"
 
-/* The main function that implements QuickSort 
- arr[] --> Array to be sorted, 
-  low  --> Starting index, 
-  high  --> Ending index */
-void quickSort(int arr[], int low, int high) 
+void swap(int *xp, int *yp) 
 { 
-    if (low < high) 
-    { 
-        /* pi is partitioning index, arr[p] is now 
-           at right place */
-        int pi = partition(arr, low, high); 
-  
-        // Separately sort elements before 
-        // partition and after partition 
-        quickSort(arr, low, pi - 1); 
-        quickSort(arr, pi + 1, high); 
-    } 
-}
+    int temp = *xp; 
+    *xp = *yp; 
+    *yp = temp; 
+} 
 /* This function takes last element as pivot, places 
    the pivot element at its correct position in sorted 
     array, and places all smaller (smaller than pivot) 
@@ -91,6 +79,25 @@ int partition (int arr[], int low, int high)
     swap(&arr[i + 1], &arr[high]); 
     return (i + 1); 
 } 
+/* The main function that implements QuickSort 
+ arr[] --> Array to be sorted, 
+  low  --> Starting index, 
+  high  --> Ending index */
+void quickSort(int arr[], int low, int high) 
+{ 
+    if (low < high) 
+    { 
+        /* pi is partitioning index, arr[p] is now 
+           at right place */
+        int pi = partition(arr, low, high); 
+  
+        // Separately sort elements before 
+        // partition and after partition 
+        quickSort(arr, low, pi - 1); 
+        quickSort(arr, pi + 1, high); 
+    } 
+}
+
 
 int medianFilter(int startInt, int split){
 //out[0].Allocate(Input.Width, Input.Height, Input.Components);
@@ -99,8 +106,8 @@ int medianFilter(int startInt, int split){
 //Output2.Allocate(Input.Width, Input.Height, Input.Components);
 int x, y;
 int j, k;
-int start = startInt*(ceil(Input.Height/split));
-int end = start + ceil(Input.Height/split);
+int start = startInt*(ceil(2560/split));
+int end = start + ceil(2560/split);
 int index;
 for(y = start; y < end; y++){
     for(x = 0; x < Input.Width*Input.Components; x++){
